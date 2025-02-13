@@ -1,8 +1,7 @@
-from listener import Listener
-from writer.console_log import ConsoleLog 
-from writer.file_log import FileLog 
-from parser.encryption.xor import Xor
-
+from src.listener import Listener
+from src.writer.console_log import ConsoleLog 
+from src.writer.file_log import FileLog 
+from src.parser.encryption.xor import Xor
 
 def main():
     x = Xor()
@@ -12,5 +11,5 @@ def main():
     wr2 = FileLog()
     l.start(wr.write, wr2.write)
     l.stop()
-main()
+# main()
 
