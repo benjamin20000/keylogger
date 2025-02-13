@@ -5,6 +5,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from interface.writer_interface import WriterInterface
 
 
-class Writer(WriterInterface):
+class ConsoleLog(WriterInterface):
     def write(self, message):
-        print(message)
+        print(message.name)

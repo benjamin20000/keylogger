@@ -8,8 +8,9 @@ from interface.listener_interface import ListenerInterface
 
 
 class Listener(ListenerInterface):
-    def start(self, key_handler):
-        keyboard.on_press(key_handler)
+    def start(self, *arg):
+        for key_handler in arg:
+            keyboard.on_press(key_handler)
 
     def stop(self):
         keyboard.wait('esc')
