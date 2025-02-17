@@ -11,6 +11,9 @@ class Listener(ListenerInterface):
         temp_buffer = self.buffer
         self.buffer = []
         return temp_buffer
+    
+    def buffer_has_data(self):
+        return len(self.buffer)
         
     def key_handler(self, key):
         self.buffer.append((key.name))
