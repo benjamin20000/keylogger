@@ -1,2 +1,3 @@
-from src.manager import main
-main()
+from src.manager import manager
+m = manager()
+m.main()
