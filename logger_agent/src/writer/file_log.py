@@ -8,7 +8,7 @@ class FileLog(WriterInterface):
         self.words_per_line = 10
         self.words_count = 0
 
-    def write(self, message):
+    def write(self, buffer):
         with open("log_file", "a") as f:
             if self.words_per_line <= self.words_count:
                 f.write("\n")
@@ -20,5 +20,6 @@ class FileLog(WriterInterface):
 
 
             self.words_count +=1
-            f.write(str(message.name))
+            for key in buffer:
+                f.write(str(key)) 
 
