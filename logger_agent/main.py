@@ -1,3 +1,6 @@
 from src.manager import manager
-m = manager()
-m.main()
+
+
+if __name__ == '__main__':
+    m = manager()
+    m.main()
