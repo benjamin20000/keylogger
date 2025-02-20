@@ -8,7 +8,7 @@ from config.config import json_path
 class JsonLog(WriterInterface):
     def create_file(self):
         with open(json_path, "w") as f:
-            data = {"mac_address": gma(),"data":[]}
+            data = {"mac_addres": gma(),"data":[]}
             json.dump(data, f, indent=2)
         
     def write(self, message):
