@@ -11,7 +11,12 @@ def post_json():
 
         x = requests.post(url, json = data) ##send the data
         if x.status_code == 200:
-            with open(json_path, "w") as f:
-                f.close() ##delate the file after sending
+            with open(json_path,"r+") as f:
+                current_json = json.load(f)
+                f.seek(0)
+                current_json["data"] = []
+                json.dump(current_json, f, indent=2)
+                f.truncate() 
+
     except Exception as e:
         requests.post(url, json={"error": f"Unexpected error: {str(e)}"})
