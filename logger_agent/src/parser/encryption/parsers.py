@@ -4,7 +4,7 @@ class Parser(ParserInterface):
    
    def clean_and_join(self, keys: list) -> str:
         unwanted_keys = {"ctrl", "enter", "left", "right", "shift", "alt", "tab", "backspace"}
-        allowed_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"  # אותיות ותווים מיוחדים
+        allowed_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZאבגדהוזחטיכלמנסעפצקרשתםןףךץ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
         
         result = []
         
