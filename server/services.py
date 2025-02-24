@@ -23,7 +23,6 @@ def post_requ():
     if not os.path.exists(json_path):
         create_json()
     incoming_json = json.loads(request.data.decode("utf-8"))
-    print(incoming_json)
     with open(json_path, "r+") as f: 
         current_json = json.load(f)
         if incoming_json["mac_addres"] not in current_json:            

@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World1</title>
+    <title>Tabulator Table</title>
+    <link href="https://unpkg.com/tabulator-tables@5.5/dist/css/tabulator.min.css" rel="stylesheet">
 </head>
 <body>
-  <form action="javascript:handleIt()">
-    <!-- <label for="computer_n">COMPUTER NAME:</label> -->
-    computer name: <input type="text" id="computer" name="computer"><br><br>
-    from date: <input type="date" id="startDate"><br><br>
-    to date: <input type="date" id="endDate"><br><br>
-    from time: <input type="time" id="startTime"><br><br>
-    to time: <input type="time" id="endTime"><br><br>
-    <input type="submit" value="Submit">
-  </form>
-  
-  
+
+   
+    <button onclick="create_table()">Show Table</button>
+    <div id="example-table"></div>
+
+    <script src="https://unpkg.com/tabulator-tables@5.5/dist/js/tabulator.min.js"></script>
     <script src="index.js"></script>
+
 </body>
 </html>

@@ -1,53 +1,34 @@
-function handleIt(){
-    const params = new URLSearchParams({
-            computer: computer.value,
-            startDate: startDate.value,
-            enDate: endDate.value,
-            startTime: startTime.value,
-            startDate: endTime.value
-    })
-    fetch(`http://127.0.0.1:5000/data?${params.toString()}`)
-    .then(res => res.json())  // Parse JSON from the response
-    .then(data => {
-        for (var com in data){
-            console.log(data[com])
-            for (let i = 0; i< data[com].length; i++){
-                console.log(data[com][i])
-            } 
-        }
-        // console.log(data);  // Log the actual JSON data
-        show_table();  // Redirect only after fetching the data
-    })
-    .catch(error => console.error("Error fetching data:", error));
-}
-function show_table(){
-    // console.log(data[0]);
-    window.location.href = "table.html";
-    tableCreate();
 
+
+async function get_data(){
+    let res = await fetch("http://127.0.0.1:5000/data");
+    let jsonData = await res.json();
+    return await parser_data(jsonData)
 }
 
-function tableCreate() {
-    const body = document.body,
-          tbl = document.createElement('table');
-    tbl.style.width = '100px';
-    tbl.style.border = '1px solid black';
-  
-    for (let i = 0; i < 3; i++) {
-      const tr = tbl.insertRow();
-      for (let j = 0; j < 2; j++) {
-        if (i === 2 && j === 1) {
-          break;
-        } else {
-          const td = tr.insertCell();
-          td.appendChild(document.createTextNode(`Cell I${i}/J${j}`));
-          td.style.border = '1px solid black';
-          if (i === 1 && j === 1) {
-            td.setAttribute('rowSpan', '2');
-          }
-        }
-      }
+async function create_table(){
+    //define table
+    d = await get_data() 
+    var table = new Tabulator("#example-table", {
+        data:d,
+        autoColumns:true,
+    });}
+
+
+function parser_data(json){
+    res = []
+    for (let computer in json){
+        for (let inx in json[computer]){
+            decryp_text = xorDecrypt(json[computer][inx]["data"])
+            console.log(decryp_text)
+            res.push({computer: computer, time : json[computer][inx]["time"],data: decryp_text})
+        } 
     }
-    body.appendChild(tbl);
-  }
-  
+    return res
+}
+
+function xorDecrypt(data, key = "my_secret_key") {
+    return data.split('').map((c, i) => 
+        String.fromCharCode(c.charCodeAt(0) ^ key.charCodeAt(i % key.length))
+    ).join('');
+}
