@@ -1,60 +1,53 @@
 function handleIt(){
-    console.log(123456);
-    // // a = document.getElementById('endTime').value
-    // console.log(computer.value)
-    
-    // getText()
-    try {
-        const params = new URLSearchParams({
+    const params = new URLSearchParams({
             computer: computer.value,
             startDate: startDate.value,
             enDate: endDate.value,
             startTime: startTime.value,
             startDate: endTime.value
-        })
-        fetch(`http://127.0.0.1:5000/data?${params.toString()}`)
-        .then(res => res.json())  // Parse JSON from the response
-        .then(data => console.log(data))  // Log the actual JSON data
-        .catch(error => console.error("Error fetching data:", error));  // Handle errors
-    
-        //   .then(recordset => recordset.json())
-        //   .then(results => {
-        //     this.setState({ AccountDetails: results.recordset });
-        //   });
-      } catch (e) {
-        console.log(e);
-      }
+    })
+    fetch(`http://127.0.0.1:5000/data?${params.toString()}`)
+    .then(res => res.json())  // Parse JSON from the response
+    .then(data => {
+        for (var com in data){
+            console.log(data[com])
+            for (let i = 0; i< data[com].length; i++){
+                console.log(data[com][i])
+            } 
+        }
+        // console.log(data);  // Log the actual JSON data
+        show_table();  // Redirect only after fetching the data
+    })
+    .catch(error => console.error("Error fetching data:", error));
+}
+function show_table(){
+    // console.log(data[0]);
+    window.location.href = "table.html";
+    tableCreate();
+
 }
 
-
-
-async function getText() {
-    // let myObject = await fetch('http://127.0.0.1:5000');
-    // let myText = await myObject.text();
-    // console.log(myText)
-    // var payload = {
-    //     computer : computer.value,
-    //     startDate: startDate.value,
-    //     endDate: endDate.value,
-    //     startTime: startTime.value,
-    //     endTime: endTime.value
-    //     // 1:2,
-    //     // 2:3
-    // };
-    var payload = {
-        a: 1,
-        b: 2
-    };
-   
-    
-    var data = new FormData();
-    data.append( "json", JSON.stringify( payload ) );
-    
-    fetch('http://127.0.0.1:5000/data',
-    {
-        method: "POST",
-        body: data
-    })
-    .then(function(res){ return res.json(); })
-    .then(function(data){ alert( JSON.stringify( data ) ) })
+function tableCreate() {
+    const body = document.body,
+          tbl = document.createElement('table');
+    tbl.style.width = '100px';
+    tbl.style.border = '1px solid black';
+  
+    for (let i = 0; i < 3; i++) {
+      const tr = tbl.insertRow();
+      for (let j = 0; j < 2; j++) {
+        if (i === 2 && j === 1) {
+          break;
+        } else {
+          const td = tr.insertCell();
+          td.appendChild(document.createTextNode(`Cell I${i}/J${j}`));
+          td.style.border = '1px solid black';
+          if (i === 1 && j === 1) {
+            td.setAttribute('rowSpan', '2');
+          }
+        }
+      }
+    }
+    body.appendChild(tbl);
   }
+  
