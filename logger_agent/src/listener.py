@@ -13,7 +13,7 @@ class Listener(ListenerInterface):
         return temp_buffer
     
     def buffer_has_data(self):
-        return len(self.buffer)
+        return bool(len(self.buffer))
         
     def key_handler(self, key):
         self.buffer.append((key.name))

