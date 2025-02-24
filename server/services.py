@@ -8,7 +8,9 @@ app = Flask(__name__)
 CORS(app)
 script_dir =os.path.dirname(os.path.abspath(__file__))
 json_path = os.path.join(script_dir, "data", "server.json")
-os.makedirs(os.path.dirname(json_path), exist_ok=True)
+if not os.path.exists(os.path.dirname(json_path)):
+    os.makedirs(os.path.dirname(json_path), exist_ok=True)
+
 
 
 
@@ -23,7 +25,7 @@ def post_requ():
     if not os.path.exists(json_path):
         create_json()
     incoming_json = json.loads(request.data.decode("utf-8"))
-    print(incoming_json)
+    # print(incoming_json)
     with open(json_path, "r+") as f: 
         current_json = json.load(f)
         if incoming_json["mac_addres"] not in current_json:            
