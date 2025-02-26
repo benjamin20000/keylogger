@@ -3,17 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabulator Table</title>
-    <link href="https://unpkg.com/tabulator-tables@5.5/dist/css/tabulator.min.css" rel="stylesheet">
+    <title>Computer Monitoring System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div id="authContainer" class="auth-container">
+        <div class="auth-box">
+            <h2>Computer Monitoring</h2>
+            <form id="loginForm" class="auth-form">
+                <h3>Login</h3>
+                <input type="text" id="loginUsername" placeholder="Username" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <p class="toggle-text">New user? <a href="#" class="toggle-form">Register</a></p>
+            </form>
+            <form id="registerForm" class="auth-form" style="display: none;">
+                <h3>Register</h3>
+                <input type="text" id="registerUsername" placeholder="Username" required>
+                <input type="password" id="registerPassword" placeholder="Password" required>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                <button type="submit">Register</button>
+                <p class="toggle-text">Have an account? <a href="#" class="toggle-form">Login</a></p>
+            </form>
+        </div>
+    </div>
 
-   
-    <button onclick="create_table()">Show Table</button>
-    <div id="example-table"></div>
+    <div id="computersContainer" class="computers-container" style="display: none;">
+        <header>
+            <h1 class="main-title">Computer Monitoring</h1>
+            <div class="user-info">
+                <span id="userInfo" class="user-display">Logged in as: </span>
+                <button id="logoutBtn" class="btn">Logout</button>
+            </div>
+        </header>
+        <div class="table-section">
+            <div class="table-header">
+                <h2>Computers List</h2>
+            </div>
+            <table id="computersTable">
+                <thead>
+                    <tr>
+                        <th>MAC Address<br><input type="text" class="filter-input" data-column="0" placeholder="Filter MAC..."></th>
+                        <th>Last Update<br><input type="date" class="filter-date" data-column="1" placeholder="Filter Date..."></th>
+                        <th>Last Data<br><input type="text" class="filter-input" data-column="2" placeholder="Filter Data..."></th>
+                        <th>Application<br><input type="text" class="filter-input" data-column="3" placeholder="Filter App..."></th>
+                        <th>Monitoring Status<br><input type="text" class="filter-input" data-column="4" placeholder="Filter Status..."></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button id="exportExcel" class="btn">Export to Excel</button>
+        </div>
+        <div id="statusMessage" class="status-message"></div>
+    </div>
 
-    <script src="https://unpkg.com/tabulator-tables@5.5/dist/js/tabulator.min.js"></script>
-    <script src="index.js"></script>
+    <div id="computerModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <div class="modal-actions">
+                    <button class="btn" onclick="exportModalToExcel()">Export to Excel</button>
+                    <button class="btn" onclick="openDetailsPage()">Open in New Page</button>
+                    <span class="close-btn" onclick="document.getElementById('computerModal').style.display='none'">×</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <table id="detailsTable" class="details-table">
+                    <thead>
+                        <tr>
+                            <th>Time<br><input type="date" class="filter-date-modal" data-column="0" placeholder="Filter Date..."></th>
+                            <th>Data<br><input type="text" class="filter-input-modal" data-column="1" placeholder="Filter Data..."></th>
+                            <th>Application<br><input type="text" class="filter-input-modal" data-column="2" placeholder="Filter App..."></th>
+                            <th>Monitoring<br><input type="text" class="filter-input-modal" data-column="3" placeholder="Filter Status..."></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
