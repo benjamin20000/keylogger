@@ -18,11 +18,13 @@ class Listener(ListenerInterface):
 
     # Takes only the application name
     def key_handler(self, key):
-        window = gw.getActiveWindow().title
+        window = gw.getActiveWindow().title  
 
         match = re.search(r'[\w\s]+$', window)  
         if match:
-            window_name = match.group(0).strip()
+            window_name = match.group(0).strip()  
+        else:
+            window_name = "Unknown"  
 
         if window_name not in self.buffer:
             self.buffer[window_name] = []
@@ -31,8 +33,6 @@ class Listener(ListenerInterface):
     def start(self):
         keyboard.on_press(self.key_handler)
 
-
     def stop(self):
         keyboard.wait('esc') 
-        keyboard.unhook_all()  
-
+        keyboard.unhook_all()
