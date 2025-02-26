@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class ParserInterface(ABC):
     @abstractmethod
-    def clean_and_join(self, buffer):
+    def parse_data(self, buffer):
         """parser buffer."""
         pass
    

@@ -9,10 +9,6 @@ from threading import Thread
 from agent_network.send_json import post_json
 from config.config import write_delay, send_json_delay 
 
-parser=Parser()
-xor=Xor()
- 
-
 
 class manager:
     def __init__(self):
