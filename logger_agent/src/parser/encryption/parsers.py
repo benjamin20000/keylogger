@@ -20,8 +20,3 @@ class Parser(ParserInterface):
             new_dict[window] = ''.join(result).strip()  
 
     return new_dict  
-
-            if result:  
-                new_dict[window] = ''.join(result).strip()  
-
-        return new_dict  
