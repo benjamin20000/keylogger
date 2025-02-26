@@ -16,18 +16,20 @@ class manager:
         self.wr = ConsoleLog()
         self.wr2 = FileLog()
         self.json = JsonLog()
+        self.parser = Parser()
+        self.xor = Xor()
+
 
     def write_data(self):
         while True:
             sleep(write_delay) 
-            # > 0 
             if self.listener.buffer_has_data():
                 buffer = self.listener.get_buffer()
                 print(buffer)
                 # preser the dict -> str
-                parser_buffer=parser.clean_and_join(buffer)
+                parser_buffer= self.parser.parse_data(buffer)
                 # encript the str 
-                encBuffer=xor.encrypt(parser_buffer)
+                encBuffer=self.xor.encrypt(parser_buffer)
                 # write -> json
                 self.json.write(encBuffer)
                 

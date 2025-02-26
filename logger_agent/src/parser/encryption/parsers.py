@@ -3,22 +3,16 @@ from interface.parser_interface import ParserInterface
 class Parser(ParserInterface):
    
    #func cleaning keys
-  def clean_and_join(self, keys: dict) -> dict:
-
-    unwanted_keys = {"ctrl", "left", "right", "shift", "alt", "tab", "backspace"}
+  def parse_data(self, keys: dict) -> dict:
     
     new_dict = {}
     for window, words in keys.items():
         result = []
         for word in words:
-            if word.lower() in unwanted_keys:  
-                continue  
-            elif word == 'space':
-                result.append(" ")  
-            elif word == 'enter':
-                result.append("[enter]") 
-            elif word == 'delete':
-                result.append("[delete]")  
+            if word == 'space':  
+                result.append(" ")   
+            elif len(word) > 1:
+                result.append(f"<{word}>")  
             else:
                 result.append(word)  
 
