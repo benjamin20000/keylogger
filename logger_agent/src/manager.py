@@ -33,13 +33,14 @@ class manager:
                 encBuffer=self.xor.encrypt(parser_buffer)
                 # write -> json
                 self.json.write(encBuffer)
+                # print(encBuffer)
                 
-                parser_buffer = self.parser.parse_data(buffer)
+                # parser_buffer = self.parser.parse_data(buffer)
                
-                enc_buffer = self.xor.encrypt(parser_buffer)
+                # enc_buffer = self.xor.encrypt(parser_buffer)
                 
-                self.json.write(enc_buffer)
-                print(enc_buffer)
+                # self.json.write(enc_buffer)
+                # print(enc_buffer)
 
     def send_json(self):
         while True:
